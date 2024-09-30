@@ -1,9 +1,19 @@
+
+
+using MassTransit;
+using Microsoft.EntityFrameworkCore;
+using Order.API.Consumers;
+using Order.API.Models.Context.cs;
+using Order.API.ViewModels;
+using Shared;
+using Shared.Events;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-/*
+
 builder.Services.AddMassTransit(configurator =>
 {
     configurator.AddConsumer<PaymentCompletedEventConsumer>();
@@ -19,7 +29,7 @@ builder.Services.AddMassTransit(configurator =>
 });
 
 builder.Services.AddDbContext<OrderAPIDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQLServer")));
-*/
+
 
 var app = builder.Build();
 
@@ -31,7 +41,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-/*
+
 app.MapPost("/create-order", async (CreateOrderVM model, OrderAPIDbContext context, IPublishEndpoint publishEndpoint) =>
 {
     Order.API.Models.Order order = new()
@@ -64,6 +74,6 @@ app.MapPost("/create-order", async (CreateOrderVM model, OrderAPIDbContext conte
         }).ToList()
     };
     await publishEndpoint.Publish(orderCreatedEvent);
-});*/
+});
 app.Run();
 
